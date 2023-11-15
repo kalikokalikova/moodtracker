@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "./api";
+import GridPage from "./Pages/GridPage";
 
 const App = () => {
   const [moodpoints, setMoodpoints] = useState([]);
@@ -49,6 +50,8 @@ const App = () => {
       </nav>
 
       <div className="container">
+      <GridPage/>
+
         <form onSubmit={handleFormSubmit}>
           <div className="mb-3 mt-3">
             <label htmlFor="label" className="form-label">
