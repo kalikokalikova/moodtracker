@@ -68,7 +68,7 @@ const gridData = [
     {
         "label": "We're so fucking back",
         "energy": 5,
-        "pleasantness": 5,
+        "pleasantness": 6,
         "color": "lemonchiffon",
     },
     {

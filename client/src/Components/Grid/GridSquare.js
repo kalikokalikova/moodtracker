@@ -16,7 +16,13 @@ const styles = createUseStyles({
 function GridSquare(props) {
   const { label, energy, pleasantness, color } = props.data;
   const style = styles(color);
-  return <div className={style.square}>{label}</div>;
+
+  const handleClick = () => {
+    console.log("Energy:", energy);
+    console.log("Pleasantness:", pleasantness);
+  };
+
+  return <div className={style.square} onClick={handleClick}>{label}</div>;
 }
 
 export default GridSquare;
