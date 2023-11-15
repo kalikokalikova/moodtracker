@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "moodtracker"
+version = "0.0.1"
+description = "An app to track your fucked up you crazy bastard"
+authors = ["Calico Seders"]
+packages = [{include = "server"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0.post1"
+sqlalchemy = "^2.0.23"
+
