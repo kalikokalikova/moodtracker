@@ -3,6 +3,7 @@ import GridSquare from "./GridSquare";
 import { createUseStyles } from "react-jss";
 import GridData from "./GridData";
 import { Button, useDisclosure } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -30,6 +31,7 @@ function Grid() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const style = styles();
+  const toast = useToast()
 
   const handleGridSquareClick = (energy, pleasantness, label) => {
     setMoodpointForm({energy: energy, pleasantness: pleasantness, label: label})
@@ -46,8 +48,10 @@ function Grid() {
         label: ""
       });
       console.log("Here's the response: ", response)
+      toast({title: "The MoodPoint has been saved!", status: 'success', isClosable: true})
     } catch (error) {
       console.log("There was an error saving this data point and here it is ", error)
+      toast({title: "Something has gone wrong, please try again later", status: 'error', isClosable: true})
     }
     onClose();
   };
