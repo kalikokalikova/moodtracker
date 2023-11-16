@@ -15,14 +15,20 @@ const styles = createUseStyles({
 
 function GridSquare(props) {
   const { label, energy, pleasantness, color } = props.data;
+  const handleGridSquareClick = props.handleGridSquareClick;
   const style = styles(color);
 
   const handleClick = () => {
-    console.log("Energy:", energy);
-    console.log("Pleasantness:", pleasantness);
+    handleGridSquareClick(energy, pleasantness, label)
   };
 
-  return <div className={style.square} onClick={handleClick}>{label}</div>;
+  return (
+    <>
+      <div className={style.square} onClick={handleClick}>
+        {label}
+      </div>
+    </>
+  );
 }
 
 export default GridSquare;
