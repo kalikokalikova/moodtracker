@@ -1,4 +1,3 @@
-# This is what sqlalchemy uses to create the tables in the db
 from database import Base
 from sqlalchemy import Column, Integer, String, Boolean
 
