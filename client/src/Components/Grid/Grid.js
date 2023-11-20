@@ -34,7 +34,7 @@ function Grid() {
   const toast = useToast()
 
   const handleGridSquareClick = (energy, pleasantness, label) => {
-    setMoodpointForm({energy: energy, pleasantness: pleasantness, label: label})
+    setMoodpointForm({energy: energy, pleasantness: pleasantness, label: label, user_id: 1})
     onOpen();
   };
 
@@ -45,7 +45,7 @@ function Grid() {
       setMoodpointForm({
         energy: 0,
         pleasantness: 0,
-        label: ""
+        label: "",
       });
       console.log("Here's the response: ", response)
       toast({title: "The MoodPoint has been saved!", status: 'success', isClosable: true})

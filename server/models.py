@@ -17,9 +17,9 @@ class Moodpoint(Base):
     __tablename__ = 'moodpoints'
 
     id = Column(Integer, primary_key=True, index=True)
-    label = Column(String(256))
-    energy = Column(Integer)
-    pleasantness = Column(Integer)
+    label = Column(String(256), nullable=False)
+    energy = Column(Integer, nullable=False)
+    pleasantness = Column(Integer, nullable=False)
     updated_at = Column(DateTime, nullable=True, default=None, onupdate=datetime.now)
     created_at = Column(DateTime, nullable=False, server_default=func.now())
-    user_id = Column(Integer)
+    user_id = Column(Integer, nullable=False)
