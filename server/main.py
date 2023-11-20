@@ -60,8 +60,11 @@ def login(auth_details: AuthDetails, db: db_dependency):
     return { 'token': token }
 
 # protected route
+# The Depends function is used to declare a dependency on the auth_handler.auth_wrapper method.
+# get_current_user won't be executed unless the dependency (authentication) is satisfied.
 @app.get('/current_user')
 def get_current_user(email=Depends(auth_handler.auth_wrapper)):
+    # The result of the auth_handler.auth_wrapper method (the decoded email from the token) is passed as the email parameter to the get_current_user route.
     return { 'email': email }
 
 

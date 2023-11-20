@@ -18,11 +18,11 @@ class AuthHandler():
         password_bytes = plain_password.encode("utf-8")
         return bcrypt.checkpw(password_bytes, hashed_password.encode("utf-8"))
 
-    def encode_token(self, user_id):
+    def encode_token(self, user_email):
         payload = {
             'exp': datetime.utcnow() + timedelta(days=0, minutes=1),
             'iat': datetime.utcnow(),
-            'sub': user_id,
+            'sub': user_email,
         }
         return jwt.encode(
             payload,
@@ -39,5 +39,7 @@ class AuthHandler():
         except jwt.InvalidTokenError as e:
             raise HTTPException(status_code=401, detail='Invalid token')
 
+    # This is a wrapper around the authentication process
+    # It uses the Security dependency to extract the credentials from the HTTP Authorization header
     def auth_wrapper(self, auth: HTTPAuthorizationCredentials = Security(security)):
         return self.decode_token(auth.credentials)
