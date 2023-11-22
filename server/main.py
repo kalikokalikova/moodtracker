@@ -45,7 +45,8 @@ async def register_user(auth_details: AuthDetails, db: db_dependency):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return new_user
+    token = auth_handler.encode_token(new_user.email)
+    return { 'user_id': new_user.id, 'email': new_user.email, 'token': token }
 
 
 @app.post('/login', response_model=dict)
@@ -57,7 +58,7 @@ def login(auth_details: AuthDetails, db: db_dependency):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = auth_handler.encode_token(user.email)
-    return { 'token': token }
+    return { 'user_id': user.id, 'email': user.email, 'token': token }
 
 # protected route
 # The Depends function is used to declare a dependency on the auth_handler.auth_wrapper method.

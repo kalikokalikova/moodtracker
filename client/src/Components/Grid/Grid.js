@@ -34,6 +34,7 @@ function Grid() {
   const toast = useToast()
 
   const handleGridSquareClick = (energy, pleasantness, label) => {
+    // TODO put real user id here
     setMoodpointForm({energy: energy, pleasantness: pleasantness, label: label, user_id: 1})
     onOpen();
   };

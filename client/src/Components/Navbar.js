@@ -21,8 +21,12 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import React, { useContext } from "react";
+import { UserContext } from "../Hooks/UserContext";
+import AuthButton from "./Authentication/AuthButton";
 
 export default function Navbar() {
+  const { user } = useContext(UserContext);
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -53,11 +57,15 @@ export default function Navbar() {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }} alignItems={"center"}>
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: "center", md: "start" }}
+          alignItems={"center"}
+        >
           <div>
             <a href="/">
               <img
-                style={{width: "50px"}}
+                style={{ width: "50px" }}
                 src={process.env.PUBLIC_URL + "/images/lil-brain.jpg"}
                 alt="Brainstorm logo"
               />
@@ -68,6 +76,7 @@ export default function Navbar() {
             <DesktopNav />
           </Flex>
         </Flex>
+        { user ? <Text style={{"margin": "auto 1.5rem"}} display={{ base: "none", md: "flex" }}>Greetings, {user.email}</Text> : null }
 
         <Stack
           flex={{ base: 1, md: 0 }}
@@ -75,21 +84,8 @@ export default function Navbar() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            as={"a"}
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"darkseagreen"}
-            href={"/register-or-login"}
-            _hover={{
-              bg: "#42610a",
-              color: "white",
-            }}
-          >
-            Sign In
-          </Button>
+
+          <AuthButton display={{ base: "none", md: "inline-flex" }} />
         </Stack>
       </Flex>
 
@@ -138,21 +134,7 @@ const MobileNav = () => {
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
-      <Button
-        as={"a"}
-        display={"grid"}
-        fontSize={"sm"}
-        fontWeight={600}
-        color={"white"}
-        bg={"darkseagreen"}
-        href={"/register-or-login"}
-        _hover={{
-          bg: "#42610a",
-          color: "white",
-        }}
-      >
-        Sign In
-      </Button>
+      <AuthButton display={"grid"} />
     </Stack>
   );
 };
