@@ -1,14 +1,13 @@
-import React from 'react';
-import Navbar from '../Components/Navbar';
+import React, { useContext } from "react";
+import { UserContext } from "../Hooks/UserContext";
+import GraphPrompt from "../Components/Graph/GraphPrompt";
 
 function GraphPage() {
-  return (
-    <>
-    <Navbar/>
-    <div>GraphPage</div>
-    </>
+  const { user } = useContext(UserContext);
 
-  )
+  return (
+    <>{user ? <div>graph page here</div> : <GraphPrompt/>}</>
+  );
 }
 
 export default GraphPage;

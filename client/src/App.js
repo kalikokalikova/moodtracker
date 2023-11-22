@@ -4,6 +4,7 @@ import GridPage from "./Pages/GridPage";
 import GraphPage from "./Pages/GraphPage";
 import RegisterOrLoginPage from "./Pages/AuthPage";
 import { UserContext } from "./Hooks/UserContext";
+import Navbar from "./Components/Navbar";
 
 const App = () => {
   const [user, setUser] = useState(() => {
@@ -19,6 +20,7 @@ const App = () => {
     <Router>
       <div className="App">
         <UserContext.Provider value={{ user, setUser }}>
+          <Navbar/>
           <div className="content">
             <Routes>
               <Route path="/" element={<GridPage />} />
