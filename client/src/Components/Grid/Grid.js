@@ -13,6 +13,7 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import api from "../../api";
+import Navbar from "../Navbar";
 
 const styles = createUseStyles({
   squareContainer: {
@@ -59,6 +60,7 @@ function Grid() {
 
   return (
     <>
+      <Navbar/>
       <div className={style.squareContainer}>
         {GridData.map((data, index) => (
           <div key={index}><GridSquare data={data} handleGridSquareClick={handleGridSquareClick}/></div>
