@@ -3,7 +3,7 @@ from typing import Annotated, List
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from auth import AuthHandler
-from schemas import AuthDetails, UserBase, MoodpointBase, MoodpointModel
+from schemas import AuthDetails, MoodpointBase, Moodpoint
 import models
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -78,7 +78,7 @@ async def get_user_by_id(user_id: int, db: db_dependency):
     return user
 
 
-@app.post('/moodpoints', response_model=MoodpointModel)
+@app.post('/moodpoints', response_model=Moodpoint)
 async def create_moodpoint(moodpoint: MoodpointBase, db: db_dependency):
     db_moodpoint = models.Moodpoint(**moodpoint.dict())
     db.add(db_moodpoint)
@@ -87,13 +87,13 @@ async def create_moodpoint(moodpoint: MoodpointBase, db: db_dependency):
     return db_moodpoint
 
 
-@app.get('/moodpoints', response_model=List[MoodpointModel])
+@app.get('/moodpoints', response_model=List[Moodpoint])
 async def get_all_moodpoints(db: db_dependency, skip: int = 0, limit: int = 100):
     moodpoints = db.query(models.Moodpoint).offset(skip).limit(limit).all()
     return moodpoints
 
 
-@app.get('/moodpoints/{user_id}', response_model=List[MoodpointModel])
+@app.get('/moodpoints/{user_id}', response_model=List[Moodpoint])
 async def get_moodpoints_by_user(user_id: int, db: db_dependency, skip: int = 0, limit: int = 100):
     moodpoints = db.query(models.Moodpoint).filter(
         models.Moodpoint.user_id == user_id).offset(skip).limit(limit).all()

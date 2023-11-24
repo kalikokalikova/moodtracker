@@ -1,6 +1,7 @@
 from database import Base
 from datetime import datetime
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, func
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, func, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
@@ -12,6 +13,8 @@ class User(Base):
     updated_at = Column(DateTime, nullable=True, default=None, onupdate=datetime.now)
     created_at = Column(DateTime, nullable=False, server_default=func.now())
 
+    moodpoints = relationship("Moodpoint", back_populates="user")
+
 
 class Moodpoint(Base):
     __tablename__ = 'moodpoints'
@@ -22,4 +25,6 @@ class Moodpoint(Base):
     pleasantness = Column(Integer, nullable=False)
     updated_at = Column(DateTime, nullable=True, default=None, onupdate=datetime.now)
     created_at = Column(DateTime, nullable=False, server_default=func.now())
-    user_id = Column(Integer, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    user = relationship("User", back_populates="moodpoints")

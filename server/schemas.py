@@ -1,11 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 # pydantic models
 # validates request from client
-
-
 class AuthDetails(BaseModel):
-    email: str
+    email: EmailStr
     password: str
 
 
@@ -16,15 +14,17 @@ class MoodpointBase(BaseModel):
     user_id: int
 
 
-class MoodpointModel(MoodpointBase):
+class Moodpoint(MoodpointBase):
     id: int
 
     class Config:
         orm_mode = True
 
-# TODO is there a pydantic email validator?
-
 
 class UserBase(BaseModel):
     email: str
-    password: str
+
+
+class User(UserBase):
+    id: int
+    moodpoints: list[Moodpoint] = []
