@@ -1,76 +1,82 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../../Hooks/UserContext";
 import api from "../../api";
-import { plugins } from "chart.js";
-import { Line } from "react-chartjs-2";
-import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
-
-Chart.register(CategoryScale);
+import { Chart, TimeScale, LinearScale, LineController, PointElement, LineElement } from "chart.js";
+import 'chartjs-adapter-date-fns';
 
 function Graph() {
   const { user } = useContext(UserContext);
-  const [moodpoints, setMoodpoints] = useState([]);
+  const [moodpointData, setMoodpointData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const chartRef = useRef(null);
 
   useEffect(() => {
+    Chart.register(TimeScale, LinearScale, LineController, PointElement, LineElement);
+
     const fetchData = async () => {
       try {
-        let response = await api.get(`/moodpoints/${user.user_id}`);
+        let response = await api.get(`/moodpoints/line/${user.user_id}`);
         console.log("Here's the response: ", response);
-        setMoodpoints(response.data)
+        setMoodpointData(response.data);
+        setLoading(false);
       } catch (error) {
         console.log("Here's the error: ", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [user.user_id]);
 
-  const dates = moodpoints.map((mp) => mp.created_at)
-  const energyPoints = moodpoints.map((mp) => mp.energy)
-  const pleasantnessPoints = moodpoints.map((mp) => mp.pleasantness)
+  useEffect(() => {
+    if (chartRef.current) {
+      // Destroy existing chart before rendering a new one
+      chartRef.current.destroy();
+    }
+    // Check if moodpointData is not empty before creating a new chart
+    if (moodpointData.dates?.length > 0) {
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const newChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: moodpointData.dates,
+          datasets: [
+            {
+              label: "Energy",
+              data: moodpointData.energy_values,
+              backgroundColor: moodpointData.colors,
+              borderWidth: 1,
+            },
+            {
+              label: "Pleasantness",
+              data: moodpointData.pleasantness_values,
+              backgroundColor: moodpointData.colors,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'time',
+              // other configurations...
+            },
+            y: {
+              min: 0,
+              max: 8,
+            },
+          },
+        },
+      });
 
-  const graphData = {
-    labels: dates,
-    datasets: [
-      {
-        label: "Popularity of colors",
-        data: energyPoints,
-        backgroundColor: [
-          "rgba(255, 255, 255, 0.6)",
-          "rgba(255, 255, 255, 0.6)",
-          "rgba(255, 255, 255, 0.6)",
-        ],
-        borderWidth: 1,
-      },
-      {
-        label: "Pleasantness",
-        data: pleasantnessPoints,
-        backgroundColor: [
-            "",
-            "",
-            "",
-        ]
-      }
-    ],
-  };
+      // Save the chart reference
+      chartRef.current = newChart;
+    }
+  }, [moodpointData]);
+
 
   return (
     <>
-      <div>Graph goes here</div>
-      <Line
-        data={graphData}
-        options={{
-          plugins: {
-            title: {
-              display: true,
-              text: "your feelings",
-            },
-          },
-        }}
-      />
+      { loading ? (<div>Loading...</div>) : <canvas id="myChart" /> }
     </>
   );
 }

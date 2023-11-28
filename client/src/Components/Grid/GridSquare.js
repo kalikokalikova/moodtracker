@@ -19,7 +19,7 @@ function GridSquare(props) {
   const style = styles(color);
 
   const handleClick = () => {
-    handleGridSquareClick(energy, pleasantness, label)
+    handleGridSquareClick(energy, pleasantness, label, color)
   };
 
   return (

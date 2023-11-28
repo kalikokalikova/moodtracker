@@ -99,6 +99,22 @@ async def get_moodpoints_by_user(user_id: int, db: db_dependency, skip: int = 0,
         models.Moodpoint.user_id == user_id).offset(skip).limit(limit).all()
     return moodpoints
 
+@app.get('/moodpoints/line/{user_id}', status_code=status.HTTP_200_OK)
+async def get_line_graph_data_by_user(user_id: int, db: db_dependency, skip: int = 0, limit: int = 100):
+    moodpoints = db.query(models.Moodpoint).filter(
+        models.Moodpoint.user_id == user_id).offset(skip).limit(limit).all()
+    result = {
+        'dates': [],
+        'energy_values': [],
+        'pleasantness_values': [],
+        'colors': []
+    }
+    for mp in moodpoints:
+        result['dates'].append(mp.created_at)
+        result['energy_values'].append(mp.energy)
+        result['pleasantness_values'].append(mp.pleasantness)
+        result['colors'].append(mp.color)
+    return result
 
 @app.delete('/moodpoints/{moodpoint_id}', status_code=status.HTTP_200_OK)
 async def delete_moodpoint(moodpoint_id: int, db: db_dependency):

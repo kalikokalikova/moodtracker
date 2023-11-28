@@ -29,17 +29,19 @@ function Grid() {
     energy: 0,
     pleasantness: 0,
     label: "",
+    color: ""
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const style = styles();
   const toast = useToast();
 
-  const handleGridSquareClick = (energy, pleasantness, label) => {
+  const handleGridSquareClick = (energy, pleasantness, label, color) => {
     setMoodpointForm({
       energy: energy,
       pleasantness: pleasantness,
       label: label,
+      color: color,
       user_id: user?.user_id,
     });
     onOpen();

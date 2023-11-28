@@ -12,6 +12,7 @@ class MoodpointBase(BaseModel):
     label: str
     energy: int
     pleasantness: int
+    color: str
     user_id: int
 
 
