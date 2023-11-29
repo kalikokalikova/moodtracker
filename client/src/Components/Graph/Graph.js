@@ -8,6 +8,8 @@ import {
   LineController,
   PointElement,
   LineElement,
+  Tooltip,
+  Legend
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 
@@ -24,7 +26,9 @@ function Graph() {
       LinearScale,
       LineController,
       PointElement,
-      LineElement
+      LineElement,
+      Tooltip,
+      Legend
     );
 
     const fetchData = async () => {
@@ -58,21 +62,34 @@ function Graph() {
               label: "Energy",
               data: moodpointData.energy_values,
               backgroundColor: moodpointData.colors,
+              borderColor: "#acffee",
               borderWidth: 1,
             },
             {
               label: "Pleasantness",
               data: moodpointData.pleasantness_values,
               backgroundColor: moodpointData.colors,
+              borderColor: "#b8b4ff",
+              borderDash: [5, 5],
+              borderWidth: 1,
             },
           ],
         },
         options: {
-          plugins: {
-            tooltip: {
-              enabled: true,
-              mode: 'index', // Set the mode to 'index' to show tooltips for multiple datasets at the same index
+          elements: {
+            point: {
+              radius: 5,
             },
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: (context) => {
+                  const datasetIndex = context.datasetIndex;
+                  return datasetIndex === 0 ? "#acffee" : "#b8b4ff";
+                },
+              }
+            }
           },
           scales: {
             x: {
