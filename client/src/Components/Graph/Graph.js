@@ -12,6 +12,14 @@ import {
   Legend
 } from "chart.js";
 import "chartjs-adapter-date-fns";
+import { createUseStyles } from "react-jss";
+
+
+const styles = createUseStyles({
+  linegraph: {
+    margin: "3rem",
+  },
+});
 
 function Graph() {
   const { user } = useContext(UserContext);
@@ -19,6 +27,7 @@ function Graph() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const chartRef = useRef(null);
+  const style = styles();
 
   useEffect(() => {
     Chart.register(
@@ -84,10 +93,7 @@ function Graph() {
           plugins: {
             legend: {
               labels: {
-                color: (context) => {
-                  const datasetIndex = context.datasetIndex;
-                  return datasetIndex === 0 ? "#acffee" : "#b8b4ff";
-                },
+                color: "#ababab"
               }
             }
           },
@@ -114,7 +120,7 @@ function Graph() {
     }
   }, [moodpointData]);
 
-  return <>{loading ? <div>Loading...</div> : <canvas id="myChart" />}</>;
+  return <>{loading ? <div>Loading...</div> : <div className={style.linegraph}><canvas id="myChart" /></div>}</>;
 }
 
 export default Graph;
