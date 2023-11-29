@@ -21,6 +21,7 @@ const styles = createUseStyles({
     display: "grid", // Set display property to 'grid'
     gridTemplateColumns: "repeat(6, 1fr)", // You can adjust the number of columns as needed
     gap: "8px", // Adjust the gap between squares
+    margin: "1rem",
   },
 });
 

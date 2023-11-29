@@ -22,6 +22,7 @@ function YAxisBox() {
         flexDirection: "column",
         justifyContent: "space-evenly",
         textAlign: "center",
+        margin: '.5rem',
       }}
     >
       <div className={style.axisText}>

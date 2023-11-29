@@ -22,6 +22,7 @@ function XAxisBox() {
         alignItems: "center",
         display: "flex",
         justifyContent: "space-evenly",
+        margin: '.5rem',
       }}
     >
       <div className={style.axisText}>unpleasant</div>
