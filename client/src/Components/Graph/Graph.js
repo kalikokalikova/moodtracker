@@ -1,8 +1,15 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../../Hooks/UserContext";
 import api from "../../api";
-import { Chart, TimeScale, LinearScale, LineController, PointElement, LineElement } from "chart.js";
-import 'chartjs-adapter-date-fns';
+import {
+  Chart,
+  TimeScale,
+  LinearScale,
+  LineController,
+  PointElement,
+  LineElement,
+} from "chart.js";
+import "chartjs-adapter-date-fns";
 
 function Graph() {
   const { user } = useContext(UserContext);
@@ -12,7 +19,13 @@ function Graph() {
   const chartRef = useRef(null);
 
   useEffect(() => {
-    Chart.register(TimeScale, LinearScale, LineController, PointElement, LineElement);
+    Chart.register(
+      TimeScale,
+      LinearScale,
+      LineController,
+      PointElement,
+      LineElement
+    );
 
     const fetchData = async () => {
       try {
@@ -35,9 +48,9 @@ function Graph() {
     }
     // Check if moodpointData is not empty before creating a new chart
     if (moodpointData.dates?.length > 0) {
-      const ctx = document.getElementById('myChart').getContext('2d');
+      const ctx = document.getElementById("myChart").getContext("2d");
       const newChart = new Chart(ctx, {
-        type: 'line',
+        type: "line",
         data: {
           labels: moodpointData.dates,
           datasets: [
@@ -55,10 +68,21 @@ function Graph() {
           ],
         },
         options: {
+          plugins: {
+            tooltip: {
+              enabled: true,
+              mode: 'index', // Set the mode to 'index' to show tooltips for multiple datasets at the same index
+            },
+          },
           scales: {
             x: {
-              type: 'time',
-              // other configurations...
+              type: "time",
+              time: {
+                unit: 'day',
+                displayFormats: {
+                  day: "MMM d",
+                },
+              },
             },
             y: {
               min: 0,
@@ -73,12 +97,7 @@ function Graph() {
     }
   }, [moodpointData]);
 
-
-  return (
-    <>
-      { loading ? (<div>Loading...</div>) : <canvas id="myChart" /> }
-    </>
-  );
+  return <>{loading ? <div>Loading...</div> : <canvas id="myChart" />}</>;
 }
 
 export default Graph;
