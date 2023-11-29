@@ -3,7 +3,7 @@ import GridSquare from "./GridSquare";
 import { UserContext } from "../../Hooks/UserContext";
 import { createUseStyles } from "react-jss";
 import GridData from "./GridData";
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Box, useDisclosure } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import {
   AlertDialog,
@@ -14,6 +14,7 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import api from "../../api";
+import XAxisBox from "../Axes/XAxisBox";
 
 const styles = createUseStyles({
   squareContainer: {
@@ -29,7 +30,7 @@ function Grid() {
     energy: 0,
     pleasantness: 0,
     label: "",
-    color: ""
+    color: "",
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
@@ -77,7 +78,7 @@ function Grid() {
   };
 
   return (
-    <>
+    <div>
       <div className={style.squareContainer}>
         {GridData.map((data, index) => (
           <div key={index}>
@@ -88,6 +89,7 @@ function Grid() {
           </div>
         ))}
       </div>
+      <XAxisBox/>
 
       <AlertDialog
         motionPreset="slideInBottom"
@@ -120,7 +122,8 @@ function Grid() {
           ) : (
             <AlertDialogContent>
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                You need to sign in or create an account to save this Mood Point.
+                You need to sign in or create an account to save this Mood
+                Point.
               </AlertDialogHeader>
 
               <AlertDialogFooter>
@@ -132,7 +135,7 @@ function Grid() {
           )}
         </AlertDialogOverlay>
       </AlertDialog>
-    </>
+    </div>
   );
 }
 

@@ -29,9 +29,8 @@ export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box className="boxy-box">
+    <Box>
       <Flex
-        className="flexy-flex"
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
