@@ -9,22 +9,24 @@ const styles = createUseStyles({
     fontSize: "xxx-large",
     fontFamily: "monospace",
   },
+  axisBox: {
+    minWidth: "100px",
+    minHeight: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    textAlign: "center",
+    margin: ".5rem",
+    "@media (max-width: 780px)": {
+        display: "none",
+      },
+  },
 });
 
 function YAxisBox() {
   const style = styles();
   return (
-    <Box
-      minW={"100px"}
-      minH={"100%"}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-evenly",
-        textAlign: "center",
-        margin: '.5rem',
-      }}
-    >
+    <Box className={style.axisBox}>
       <div className={style.axisText}>
         high
         <br /> energy

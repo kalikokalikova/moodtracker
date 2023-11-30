@@ -9,7 +9,20 @@ const styles = createUseStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: 'center',
+    maxWidth: '175px',
     backgroundColor: (color) => color,
+    '&:hover': {
+      cursor: "pointer",
+    },
+    '@media (max-width: 950px)': {
+      fontSize: '11px',
+    },
+    '@media (max-width: 780px)': {
+      fontSize: '9px',
+      padding: 0,
+    fontWeight: 'normal',
+    },
   },
 });
 

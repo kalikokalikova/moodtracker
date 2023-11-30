@@ -10,20 +10,23 @@ const styles = createUseStyles({
     fontSize: "xxx-large",
     fontFamily: "monospace",
   },
+  axisBox: {
+    minWidth: "100%",
+    minHeight: "100px",
+    display: "flex",
+    justifyContent: "space-evenly",
+    margin: ".5rem",
+    "@media (max-width: 780px)": {
+        display: "none",
+      },
+  },
 });
 
 function XAxisBox() {
   const style = styles();
   return (
     <Box
-      minW={"100%"}
-      minH={"100px"}
-      style={{
-        alignItems: "center",
-        display: "flex",
-        justifyContent: "space-evenly",
-        margin: '.5rem',
-      }}
+      className={style.axisBox}
     >
       <div className={style.axisText}>unpleasant</div>
       <img
