@@ -1,0 +1,17 @@
+# --- Client / Frontend (Vite & Node) ---
+client/node_modules/
+client/dist/
+client/.env
+client/.env.local
+
+# --- Server / Backend (uv & Python) ---
+server/.venv/
+server/__pycache__/
+server/*.pyc
+server/.pytest_cache/
+server/.env
+
+# --- System / IDE ---
+.DS_Store
+.vscode/
+.idea/
