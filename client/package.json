@@ -22,6 +22,7 @@
     "react-dom": "^18.2.0",
     "react-jss": "^10.10.0",
     "react-router-dom": "^6.19.0",
+    "serve": "^14.2.6",
     "web-vitals": "^2.1.4"
   },
   "overrides": {
@@ -29,6 +30,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "start": "serve -s dist -l $PORT",
     "build": "vite build",
     "preview": "vite preview"
   },

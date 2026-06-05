@@ -13,6 +13,7 @@ auth_handler = AuthHandler()
 
 origins = [
     "http://localhost:3000",
+    "https://your-frontend-app-name.herokuapp.com",
 ]
 
 app.add_middleware(
