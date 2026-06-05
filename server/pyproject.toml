@@ -1,18 +1,25 @@
-[tool.poetry]
+[project]
 name = "moodtracker"
 version = "0.0.1"
 description = "An app to track your fucked up you crazy bastard"
-authors = ["Calico Seders"]
-packages = [{include = "server"}]
+authors = [{ name = "Calico Seders" }]
+requires-python = ">=3.12,<4"
+dependencies = [
+    "fastapi>=0.104.1,<0.105",
+    "uvicorn>=0.24.0.post1,<0.25",
+    "sqlalchemy>=2.0.23,<3",
+    "pymysql>=1.1.0,<2",
+    "alembic>=1.12.1,<2",
+    "pyjwt>=2.8.0,<3",
+    "bcrypt>=4.0.1,<5",
+    "email-validator>=2.1.0.post1,<3",
+    "pydantic>=2.13.4",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-fastapi = "^0.104.1"
-uvicorn = "^0.24.0.post1"
-sqlalchemy = "^2.0.23"
-pymysql = "^1.1.0"
-alembic = "^1.12.1"
-pyjwt = "^2.8.0"
-bcrypt = "^4.0.1"
-email-validator = "^2.1.0.post1"
+[tool.uv]
+
+[tool.uv.build-backend]
+module-name = ["server"]
+module-root = ""
+namespace = true
 
